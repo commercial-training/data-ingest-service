@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: data-ingest-service
+  cloud:
+    azure:
+      storage:
+        blob:
+          endpoint: ${AZURE_STORAGE_ENDPOINT}
+          container-name: ${AZURE_STORAGE_CONTAINER}
+      eventhubs:
+        namespace: ${AZURE_EVENTHUB_NAMESPACE}
+        event-hub-name: ${AZURE_EVENTHUB_NAME}
+        processor:
+          consumer-group: ${AZURE_EVENTHUB_CONSUMER_GROUP}
+          checkpoint-store:  #Check offset
+            account-name: ${AZURE_CHECKPOINT_STORAGE_ACCOUNT}
+            container-name: ${AZURE_CHECKPOINT_CONTAINER}
+      cosmos:
+        endpoint: ${AZURE_COSMOS_ENDPOINT}
+        database: ${AZURE_COSMOS_DATABASE}
+        populate-query-metrics: false
+
+server:
+  port: 8083
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+logging:
+  level:
+    com.azure.identity: ERROR
