@@ -6,8 +6,9 @@ on:
   workflow_dispatch:
     inputs:
       image_tag:
-        description: Explicit image tag (default: commit SHA)
+        description: 'Explicit image tag (default: commit SHA)'
         required: false
+        type: string
 
 permissions:
   id-token: write
